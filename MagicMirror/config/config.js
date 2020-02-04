@@ -25,11 +25,11 @@ var config = {
 	timeFormat: 24,
 	units: "metric",
 	// serverOnly:  true/false/"local" ,
-			     // local for armv6l processors, default 
+			     // local for armv6l processors, default
 			     //   starts serveronly and then starts chrome browser
 			     // false, default for all  NON-armv6l devices
 			     // true, force serveronly mode, because you want to.. no UI on this device
-	
+
 	modules: [
 		{
 			module: "alert",
@@ -61,22 +61,31 @@ var config = {
 		{
 			module: "currentweather",
 			position: "top_right",
+			header: "CurrentWeather",
 			config: {
-				location: "New York",
-				locationID: "",  //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
-				appid: "YOUR_OPENWEATHER_API_KEY"
+				location: "Tehran",
+				locationID: "112931",  //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+				appid: "178f407a9c21114f67c8f08550d941aa"
 			}
 		},
-		{
-			module: "weatherforecast",
-			position: "top_right",
-			header: "Weather Forecast",
-			config: {
-				location: "New York",
-				locationID: "5128581",  //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
-				appid: "YOUR_OPENWEATHER_API_KEY"
-			}
-		},
+		// {
+		// 	module: "weatherforecast",
+		// 	position: "top_right",
+		// 	header: "Weather Forecast",
+		// 	config: {
+		// 		location: "New York",
+		// 		locationID: "5128581",  //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+		// 		appid: "YOUR_OPENWEATHER_API_KEY"
+		// 	}
+		// },
+		// {
+		// 	module: "helloworld",
+		// 	position: "top_right",
+		// 	header: "HI there",
+		// 	config: {
+		// 		text: "سلام عزیزم"
+		// 	}
+		// },
 		{
 			module: "newsfeed",
 			position: "bottom_bar",
