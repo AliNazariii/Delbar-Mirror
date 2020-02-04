@@ -1,6 +1,0 @@
-requests
-feedparser
-Pillow
-jdatetime
-arabic_reshaper
-python-bidi
