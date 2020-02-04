@@ -1,8 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- 
+
 # smartmirror.py
 # requirements
 # requests, feedparser, traceback, Pillow
 
-from Tkinter import *
+from tkinter import *
 import locale
 import threading
 import time
@@ -10,14 +13,17 @@ import requests
 import json
 import traceback
 import feedparser
+import jdatetime
+from bidi.algorithm import get_display
+import arabic_reshaper
 
 from PIL import Image, ImageTk
 from contextlib import contextmanager
 
 LOCALE_LOCK = threading.Lock()
-
+jdatetime.set_locale('fa_IR')
 ui_locale = '' # e.g. 'fr_FR' fro French, '' as default
-time_format = 12 # 12 or 24
+time_format = 24 # 12 or 24
 date_format = "%b %d, %Y" # check python doc for strftime() for options
 news_country_code = 'us'
 weather_api_token = 'abb58408ed4cc40ac3e456f9c5c0b44c' # create account at https://darksky.net/dev/
@@ -82,7 +88,7 @@ class Clock(Frame):
             else:
                 time2 = time.strftime('%H:%M') #hour in 24h format
 
-            day_of_week2 = time.strftime('%A')
+            day_of_week2 = get_display(arabic_reshaper.reshape(jdatetime.datetime.now().strftime('%A')))
             date2 = time.strftime(date_format)
             # if time string has changed, update it
             if time2 != self.time1:
@@ -199,7 +205,7 @@ class Weather(Frame):
                     self.locationLbl.config(text=location2)
         except Exception as e:
             traceback.print_exc()
-            print "Error: %s. Cannot get weather." % e
+            print("Error: %s. Cannot get weather." % e)
 
         self.after(600000, self.get_weather)
 
@@ -236,7 +242,7 @@ class News(Frame):
                 headline.pack(side=TOP, anchor=W)
         except Exception as e:
             traceback.print_exc()
-            print "Error: %s. Cannot get news." % e
+            print("Error: %s. Cannot get weather." % e)
 
         self.after(600000, self.get_headlines)
 
