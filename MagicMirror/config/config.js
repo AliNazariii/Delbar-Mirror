@@ -8,22 +8,32 @@
 var config = {
 	port: 8080,
 
-	language: 'en',
+	language: "fa",
 	timeFormat: 24,
-	units: 'metric',
+	units: "metric",
 
 	modules: [
-    {
-        module: 'aiclient',
-        position: 'middle_center' // This can be any of the regions.
-    },
-    {
-    	module: 'aiclientdebugger',
-    	position: 'bottom_right'
-    }
-	]
+		{
+			module: "aiclient",
+			position: "middle_center" // This can be any of the regions.
+		},
+		{
+			module: "aiclientdebugger",
+			position: "bottom_right"
+		},
+		{
+			module: "clock",
+			position: "top_left"
+		}
+	],
+
+	electronOptions: {
+		fullscreen: false,
+		width: 800,
+		height: 600
+	}
 
 };
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
-if (typeof module !== 'undefined') {module.exports = config;}
+if (typeof module !== "undefined") { module.exports = config; }

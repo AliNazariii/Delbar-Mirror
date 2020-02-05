@@ -123,6 +123,7 @@ Module.register("clock",{
 		}
 
 		if(this.config.showDate){
+			Log.log(now.format(this.config.dateFormat));
 			dateWrapper.innerHTML = now.format(this.config.dateFormat);
 		}
 		if (this.config.showWeek) {
