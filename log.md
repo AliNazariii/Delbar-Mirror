@@ -11,3 +11,7 @@
 * executing readme.md on AI-Smart-Mirror
 * encountered problem at installing pyaudio -> fixed with: sudo apt-get install portaudio19-dev python-pyaudio
 * continue executing readme.md on AI-Smart-Mirror
+* note: setup.sh on AI-Smart-Mirror doesn't work must execute every command manually
+* to install OpenCV don't use brew :|
+* use pip3 install opencv-python (in virtual env)
+* to cast OpenCV3 to OpenCV4 change cv2.cv.CV_HAAR_SCALE_IMAGE -> cv2.CASCADE_SCALE_IMAGE

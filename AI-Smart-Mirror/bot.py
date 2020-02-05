@@ -17,7 +17,7 @@ from vision import Vision
 my_name = "Aaron"
 launch_phrase = "ok mirror"
 use_launch_phrase = True
-weather_api_token = "<weather_token>"
+weather_api_token = "abb58408ed4cc40ac3e456f9c5c0b44c"
 wit_ai_token = "<wit.ai_token>"
 debugger_enabled = True
 camera = 0
