@@ -2,6 +2,7 @@
 
 logs
 *.log
+**/node_modules
 npm-debug.log*
 pids
 *.pid
@@ -11,9 +12,6 @@ coverage
 .grunt
 .lock-wscript
 build/Release
-/node_modules/**/*
-fonts/node_modules/**/*
-vendor/node_modules/**/*
 jspm_modules
 .npm
 .node_repl_history
@@ -64,6 +62,8 @@ Temporary Items
 !/modules/default
 !/modules/default/**
 !/modules/README.md**
+!/modules/TosanMirror**
+**/node_modules
 
 # Ignore changes to the custom css files.
 /css/custom.css
@@ -77,5 +77,6 @@ Temporary Items
 *.orig
 *.rej
 *.bak
+*.gif
 
 !/tests/node_modules/**/*

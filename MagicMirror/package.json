@@ -51,7 +51,7 @@
     "mocha-each": "^1.1.0",
     "mocha-logger": "^1.0.6",
     "spectron": "^3.8.0",
-    "stylelint": "latest",
+    "stylelint": "^13.0.0",
     "stylelint-config-standard": "latest",
     "time-grunt": "latest"
   },
@@ -69,6 +69,7 @@
     "lodash": "^4.17.15",
     "module-alias": "^2.2.2",
     "moment": "latest",
+    "moment-jalaali": "^0.9.1",
     "request": "^2.88.0",
     "rrule": "^2.6.2",
     "rrule-alt": "^2.2.8",
