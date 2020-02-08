@@ -14,7 +14,7 @@ var config = {
 
 	modules: [
 		{
-			module: "aiclient",
+			module: "TosanMirror/tosan_center",
 			position: "middle_center" // This can be any of the regions.
 		},
 		{
@@ -22,8 +22,11 @@ var config = {
 			position: "bottom_right"
 		},
 		{
-			module: "clock",
-			position: "top_left"
+			module: "TosanMirror/clock_custom",
+			position: "top_left",
+			config: {
+				dateFormat: "YYYY/M/D"
+			}
 		}
 	],
 
