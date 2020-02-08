@@ -35,7 +35,7 @@ class Bot(object):
         :return:
         """
         while True:
-            requests.get("http://localhost:8080/clear")
+            requests.get("http://localhost:8080/tosan_center/face")
             if self.vision.recognize_face():
                 print ("Found face")
                 if use_launch_phrase:
@@ -58,7 +58,7 @@ class Bot(object):
 
         if speech is not None:
             if speech == 'news':
-                requests.get("http://localhost:8080/news")
+                requests.get("http://localhost:8080/tosan_center/news")
             elif speech == 'greeting':
                 self.__text_action(self.nlg.greet())
             elif speech == 'snow white':
