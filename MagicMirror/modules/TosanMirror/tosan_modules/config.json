@@ -1,0 +1,13 @@
+{
+    "tosan_news": {
+        "all": "https://www.alef.ir/rss/lastest/all.xml",
+        "politics": "https://www.alef.ir/rss/latest/politics.xml",
+        "economy": "https://www.alef.ir/rss/latest/economy.xml",
+        "culture": "https://www.alef.ir/rss/latest/culture.xml",
+        "social": "https://www.alef.ir/rss/latest/social.xml",
+        "sports": "https://www.alef.ir/rss/latest/sports.xml",
+        "technology": "https://www.alef.ir/rss/latest/technology.xml",
+        "health": "https://www.alef.ir/rss/latest/health.xml",
+        "world": "https://www.alef.ir/rss/latest/world.xml"
+    }
+}

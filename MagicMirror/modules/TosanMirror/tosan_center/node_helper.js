@@ -45,6 +45,7 @@ const helper = NodeHelper.create({
 		router.get("/news", async function (req, res) {
 			const newsApp = require("../tosan_modules/tosan_news/app");
 			self.sendSocketNotification("NEWS", await newsApp.getDOM());
+			res.sendStatus(200);
 		});
 
 		this.expressApp.use("/tosan_center", router);

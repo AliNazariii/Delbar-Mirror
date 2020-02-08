@@ -42,7 +42,8 @@ Module.register("tosan_center", {
 
 	// Override dom generator.
 	getDom: function () {
-		wrapper = this.currentDOM;
+		wrapper = document.createElement("div");
+		wrapper.innerHTML = this.currentDOM;
 		return wrapper;
 	},
 
