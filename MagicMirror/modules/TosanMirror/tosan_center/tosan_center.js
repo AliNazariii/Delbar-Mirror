@@ -36,6 +36,7 @@ Module.register("tosan_center", {
 
 	// Define start sequence.
 	start: function () {
+		this.currentDOM = "";
 		Log.log("Starting module: " + this.name);
 		this.sendSocketNotification("INITIALIZE", {});
 	},

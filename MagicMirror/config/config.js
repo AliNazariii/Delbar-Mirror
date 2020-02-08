@@ -20,13 +20,6 @@ var config = {
 		{
 			module: "aiclientdebugger",
 			position: "bottom_right"
-		},
-		{
-			module: "TosanMirror/clock_custom",
-			position: "top_left",
-			config: {
-				dateFormat: "YYYY/M/D"
-			}
 		}
 	],
 
