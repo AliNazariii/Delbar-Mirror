@@ -22,3 +22,6 @@
 * Found out how to access log + how to redirect logs to terminal (by adding export ELECTRON_ENABLE_LOGGING=true at the start of run-start.sh found it on: [MagicMirror Wiki]() )
 --------------------
 ## SmartMirror:
+* Remove wit APIs
+* use if/else to select an action based on speech
+* connect news to Magic api
