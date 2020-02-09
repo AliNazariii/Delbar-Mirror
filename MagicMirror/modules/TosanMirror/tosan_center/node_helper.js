@@ -11,12 +11,9 @@ const defaultFaceDOM = "<img src=\"modules/TosanMirror/tosan_modules/face.gif\" 
 const helper = NodeHelper.create({
 	// Subclass start method.
 	start: function () {
-		const self = this;
+		const that = this;
 
 		this.fetchers = [];
-		console.log("\n\n\n\nHello\n\n\n\n\n");
-
-		console.log(path.resolve("./modules/TosanMirror/tosan_modules/face.gif"));
 
 		const router = new express.Router();
 		router.use(express.json());
@@ -42,15 +39,35 @@ const helper = NodeHelper.create({
 		// 	});
 		// });
 
+		function sendError(err, res) {
+			console.log(err.message);
+			that.sendSocketNotification("ERROR", "");
+			res.sendStatus(400);
+		}
+
 		router.get("/face", function (req, res) {
-			self.sendSocketNotification("FACE", defaultFaceDOM);
+			that.sendSocketNotification("FACE", defaultFaceDOM);
 			res.sendStatus(200);
 		});
 
 		router.get("/news", async function (req, res) {
-			const newsApp = require("../tosan_modules/tosan_news/app");
-			self.sendSocketNotification("NEWS", await newsApp.getDOM());
-			res.sendStatus(200);
+			try {
+				const newsApp = require("../tosan_modules/tosan_news/app");
+				that.sendSocketNotification("NEWS", await newsApp.getDOM(req.body.topic));
+				res.sendStatus(200);
+			} catch (err) {
+				sendError(err, res);
+			}
+		});
+
+		router.get("/jokes", async function (req, res) {
+			try {
+				const jokesApp = require("../tosan_modules/tosan_jokes/app");
+				that.sendSocketNotification("JOKES", await jokesApp.getDOM(req.body.topic));
+				res.sendStatus(200);
+			} catch (err) {
+				sendError(err, res);
+			}
 		});
 
 		this.expressApp.use("/tosan_center", router);

@@ -50,7 +50,7 @@ Module.register("tosan_center", {
 
 	// Override socket notification handler.
 	socketNotificationReceived: function (domModule, dom) {
-		Log.log("module received new dom from module: " + domModule);
+		Log.log("received new notifictaion from submodule: " + domModule);
 		this.currentDOM = dom;
 		this.updateDom(this.config.animationSpeed);
 	}
