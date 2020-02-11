@@ -1,5 +1,3 @@
-const path = require("path");
-
 const NodeHelper = require("node_helper");
 const jMoment = require("moment-jalaali");
 const express = require("express");
@@ -63,7 +61,7 @@ const helper = NodeHelper.create({
 		router.get("/jokes", async function (req, res) {
 			try {
 				const jokesApp = require("../tosan_modules/tosan_jokes/app");
-				that.sendSocketNotification("JOKES", await jokesApp.getDOM(req.body.topic));
+				that.sendSocketNotification("JOKES", await jokesApp.getDOM());
 				res.sendStatus(200);
 			} catch (err) {
 				sendError(err, res);

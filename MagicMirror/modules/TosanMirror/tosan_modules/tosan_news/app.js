@@ -20,7 +20,7 @@ async function getData(group) {
 	}
 }
 
-myModule.getDOM = async function getDOM(group = "all") {
+myModule.getDOM = async function (group = "all") {
 	const dataList = await getData(group);
 	let inner = "";
 	for (let i = 0; i < Math.min(5, dataList.length); i++) {
@@ -30,7 +30,7 @@ myModule.getDOM = async function getDOM(group = "all") {
 	return wrapper;
 };
 
-myModule.getCredits = function getCredits() {
+myModule.getCredits = function () {
 	return;
 };
 
