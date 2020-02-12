@@ -16,7 +16,7 @@ async function getJoke() {
 			}
 		});
 		const joke = response.data.content;
-		console.log(joke);
+		// console.log(joke);
 		return joke;
 	} catch (err) {
 		console.log(err.message);
