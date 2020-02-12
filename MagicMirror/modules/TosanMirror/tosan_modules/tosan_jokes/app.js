@@ -12,7 +12,7 @@ async function getJoke() {
 				"content-type": "application/octet-stream",
 				"x-rapidapi-host": "joke3.p.rapidapi.com",
 				"x-rapidapi-key": "06f1bc444amshca89d03074926ebp17f489jsn549fbdbb579e",
-				"nsfw": "false"
+				"nsfw": (myModule.config.nsfw === undefined) ? "false" : myModule.config.nsfw
 			}
 		});
 		const joke = response.data.content;

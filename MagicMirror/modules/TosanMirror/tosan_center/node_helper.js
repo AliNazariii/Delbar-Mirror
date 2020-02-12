@@ -48,10 +48,10 @@ const helper = NodeHelper.create({
 			res.sendStatus(200);
 		});
 
-		router.post("/news", async function (req, res) {
+		router.get("/news", async function (req, res) {
 			try {
 				const newsApp = require("../tosan_modules/tosan_news/app");
-				that.sendSocketNotification("NEWS", await newsApp.getDOM(req.body.topic));
+				that.sendSocketNotification("NEWS", await newsApp.getDOM(req.query.topic));
 				res.sendStatus(200);
 			} catch (err) {
 				sendError(err, res);

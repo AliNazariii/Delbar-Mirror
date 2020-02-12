@@ -14,6 +14,7 @@ async function getData(group) {
 			// console.log((jsData.rss.channel.item));
 			list = list.concat(dataElement.title._text);
 		}
+
 		return list;
 	} catch (err) {
 		return ["Cannot get news sorry :("];

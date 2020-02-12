@@ -9,5 +9,8 @@
         "technology": "https://www.alef.ir/rss/latest/technology.xml",
         "health": "https://www.alef.ir/rss/latest/health.xml",
         "world": "https://www.alef.ir/rss/latest/world.xml"
+    },
+    "tosan_jokes": {
+        "nsfw": "false"
     }
 }

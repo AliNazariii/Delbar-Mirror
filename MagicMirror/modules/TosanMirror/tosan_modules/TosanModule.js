@@ -4,6 +4,9 @@ class TosanModule {
 	constructor(name) {
 		this.name = name;
 		this.config = (JSON.parse(fs.readFileSync("./modules/TosanMirror/tosan_modules/config.json").toString()))[name];
+		if (!this.config) {
+			this.config = {};
+		}
 	}
 
 	async getDOM() {
