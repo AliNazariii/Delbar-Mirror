@@ -30,61 +30,50 @@ class Bot(object):
         self.vision = Vision(camera=camera)
 
     def start(self):
-        """
-        Main loop. Waits for the launch phrase, then decides an action.
-        :return:
-        """
         while True:
             requests.get("http://localhost:8080/tosan_center/face")
             if self.vision.recognize_face():
                 print ("Found face")
                 if use_launch_phrase:
-                    recognizer, audio = self.speech.listen_for_audio()
-                    if self.speech.is_call_to_action(recognizer, audio):
+                    speech_res = self.speech.listen_for_audio()
+                    if self.speech.is_call_to_action(speech_res):
                         self.__acknowledge_action()
                         self.decide_action()
                 else:
                     self.decide_action()
 
     def decide_action(self):
-        """
-        Recursively decides an action based on the speech.
-        :return:
-        """
-        recognizer, audio = self.speech.listen_for_audio()
+        speech_res = self.speech.listen_for_audio()
 
-        # received audio data, now we'll recognize it using Google Speech Recognition
-        speech = self.speech.google_speech_recognition(recognizer, audio)
-
-        if speech is not None:
-            if speech == 'news':
+        if speech_res is not None:
+            if speech_res == 'news':
                 requests.get("http://localhost:8080/tosan_center/news")
-            elif speech == 'joke':
+            elif speech_res == 'joke':
                 requests.get("http://localhost:8080/jokes")
-            elif speech == 'weather':
+            elif speech_res == 'weather':
                 self.__weather_action(entities)
-            elif speech == 'greeting':
+            elif speech_res == 'greeting':
                 self.__text_action(self.nlg.greet())
-            elif speech == 'snow white':
+            elif speech_res == 'snow white':
                 self.__text_action(self.nlg.snow_white())
-            elif speech == 'maps':
-                self.__maps_action(entities)
-            elif speech == 'holidays':
-                self.__holidays_action()
-            elif speech == 'appearance':
-                self.__appearance_action()
-            elif speech == 'user status':
-                self.__user_status_action(entities)
-            elif speech == 'user name':
-                self.__user_name_action()
-            elif speech == 'personal status':
-                self.__personal_status_action()
-            elif speech == 'insult':
-                self.__insult_action()
-                return
-            elif speech == 'appreciation':
-                self.__appreciation_action()
-                return
+            # elif speech == 'maps':
+            #     self.__maps_action(entities)
+            # elif speech == 'holidays':
+            #     self.__holidays_action()
+            # elif speech == 'appearance':
+            #     self.__appearance_action()
+            # elif speech == 'user status':
+            #     self.__user_status_action(entities)
+            # elif speech == 'user name':
+            #     self.__user_name_action()
+            # elif speech == 'personal status':
+            #     self.__personal_status_action()
+            # elif speech == 'insult':
+            #     self.__insult_action()
+            #     return
+            # elif speech == 'appreciation':
+            #     self.__appreciation_action()
+            #     return
             else: # No recognized speech
                 self.__text_action("I'm sorry, I don't know about that yet.")
                 return

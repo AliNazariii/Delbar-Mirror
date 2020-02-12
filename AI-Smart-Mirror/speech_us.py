@@ -14,18 +14,6 @@ class Speech(object):
         self.debugger_enabled = debugger_enabled
         self.__debugger_microphone(enable=False)
 
-    def google_speech_recognition(self, recognizer, audio):
-        speech = None
-        try:
-            speech = recognizer.recognize_google(audio)
-            print("Google Speech Recognition thinks you said " + speech)
-        except sr.UnknownValueError:
-            print("Google Speech Recognition could not understand audio")
-        except sr.RequestError as e:
-            print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
-        return speech
-
     def listen_for_audio(self):
         # obtain audio from the microphone
         r = sr.Recognizer()
@@ -43,7 +31,7 @@ class Speech(object):
         print ("Found audio")
 
         import requests
-        proxies1 = {'http': 'http://192.168.1.50:8228'}
+        proxies1 = {'http': 'http://81.171.29.251:11495'}
         addr1 = 'http://5.202.178.217:8025/ASR/DoASRAnyWave'
         headers1 = {  'accept': 'application/json' }
         ftmp = open('temp-wav.wav', 'rb')
@@ -51,11 +39,9 @@ class Speech(object):
         res = requests.post(addr1, files = data1, proxies=proxies1, headers = headers1)
         print(res.text)
 
-        return r, audio
+        return res
 
-    def is_call_to_action(self, recognizer, audio):
-        speech = self.google_speech_recognition(recognizer, audio)
-
+    def is_call_to_action(self, speech):
         if speech is not None and self.launch_phrase in speech.lower():
             return True
 
