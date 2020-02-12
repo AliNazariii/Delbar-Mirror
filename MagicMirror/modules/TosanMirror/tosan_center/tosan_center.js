@@ -36,19 +36,21 @@ Module.register("tosan_center", {
 
 	// Define start sequence.
 	start: function () {
+		this.currentDOM = "";
 		Log.log("Starting module: " + this.name);
 		this.sendSocketNotification("INITIALIZE", {});
 	},
 
 	// Override dom generator.
 	getDom: function () {
-		wrapper = this.currentDOM;
+		wrapper = document.createElement("div");
+		wrapper.innerHTML = this.currentDOM;
 		return wrapper;
 	},
 
 	// Override socket notification handler.
 	socketNotificationReceived: function (domModule, dom) {
-		Log.log("module received new dom from module: " + domModule);
+		Log.log("received new notifictaion from submodule: " + domModule);
 		this.currentDOM = dom;
 		this.updateDom(this.config.animationSpeed);
 	}

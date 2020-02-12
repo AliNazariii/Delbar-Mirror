@@ -22,12 +22,24 @@ var config = {
 			position: "bottom_right"
 		},
 		{
-			module: "TosanMirror/clock_custom",
-			position: "top_left",
+			module: "currentweather",
+			position: "top_right",
 			config: {
-				dateFormat: "YYYY/M/D"
+				location: "Tehran",
+				locationID: "112931",  //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+				appid: "178f407a9c21114f67c8f08550d941aa"
 			}
-		}
+		},
+		{
+			module: "weatherforecast",
+			position: "top_right",
+			header: "Weather Forecast",
+			config: {
+				location: "Tehran",
+				locationID: "112931",  //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+				appid: "178f407a9c21114f67c8f08550d941aa"
+			}
+		},
 	],
 
 	electronOptions: {
