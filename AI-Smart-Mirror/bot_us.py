@@ -9,10 +9,10 @@ import datetime
 import dateutil.parser
 import json
 import traceback
-from nlg import NLG
-from speech import Speech
-from knowledge import Knowledge
-from vision import Vision
+from nlg_us import NLG
+from speech_us import Speech
+from knowledge_us import Knowledge
+from vision_us import Vision
 
 my_name = "Ali"
 launch_phrase = "hello mirror"
@@ -59,12 +59,14 @@ class Bot(object):
         if speech is not None:
             if speech == 'news':
                 requests.get("http://localhost:8080/news")
+            elif speech == 'joke':
+                requests.get("http://localhost:8080/jokes")
+            elif speech == 'weather':
+                self.__weather_action(entities)
             elif speech == 'greeting':
                 self.__text_action(self.nlg.greet())
             elif speech == 'snow white':
                 self.__text_action(self.nlg.snow_white())
-            elif speech == 'weather':
-                self.__weather_action(entities)
             elif speech == 'maps':
                 self.__maps_action(entities)
             elif speech == 'holidays':
@@ -77,8 +79,6 @@ class Bot(object):
                 self.__user_name_action()
             elif speech == 'personal status':
                 self.__personal_status_action()
-            elif speech == 'joke':
-                self.__joke_action()
             elif speech == 'insult':
                 self.__insult_action()
                 return
@@ -90,14 +90,6 @@ class Bot(object):
                 return
 
             self.decide_action()
-
-    def __joke_action(self):
-        joke = self.nlg.joke()
-
-        if joke is not None:
-            self.__text_action(joke)
-        else:
-            self.__text_action("I couldn't find any jokes")
 
     def __user_status_action(self, nlu_entities=None):
         attribute = None
@@ -132,18 +124,6 @@ class Bot(object):
         if text is not None:
             requests.get("http://localhost:8080/statement?text=%s" % text)
             self.speech.synthesize_text(text)
-
-    # def __news_action(self):
-    #     headlines = self.knowledge.get_news()
-
-    #     if headlines:
-    #         requests.post("http://localhost:8080/news", data=json.dumps({"articles":headlines}))
-    #         self.speech.synthesize_text(self.nlg.news("past"))
-    #         interest = self.nlg.article_interest(headlines)
-    #         if interest is not None:
-    #             self.speech.synthesize_text(interest)
-    #     else:
-    #         self.__text_action("I had some trouble finding news for you")
 
     def __weather_action(self, nlu_entities=None):
 
