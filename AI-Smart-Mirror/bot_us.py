@@ -10,8 +10,9 @@ import dateutil.parser
 import json
 import traceback
 from speech_us import Speech
-from knowledge_us import Knowledge
 from vision_us import Vision
+import arabic_reshaper
+from bidi.algorithm import get_display
 
 my_name = "Ali"
 launch_phrase = "سلام"
@@ -24,14 +25,13 @@ camera = 0
 class Bot(object):
     def __init__(self):
         self.speech = Speech(launch_phrase=launch_phrase, debugger_enabled=debugger_enabled)
-        self.knowledge = Knowledge(weather_api_token)
         self.vision = Vision(camera=camera)
 
     def start(self):
         while True:
             requests.get("http://localhost:8080/tosan_center/face")
             if self.vision.recognize_face():
-                print ("Found face")
+                print(get_display(arabic_reshaper.reshape('چهره تشخیص داده شد')))
                 if use_launch_phrase:
                     speech_res = self.speech.listen_for_audio()
                     if self.speech.is_call_to_action(speech_res):
@@ -53,14 +53,13 @@ class Bot(object):
                 print(get_display(arabic_reshaper.reshape('هوا')))
                 requests.get("http://localhost:8080/tosan_center/news")
             else: # No recognized speech
-                self.__text_action("I'm sorry, I don't know about that yet.")
+                self.__text_action("I'm sorry.")
                 return
 
             self.decide_action()
 
     def __text_action(self, text=None):
         if text is not None:
-            requests.get("http://localhost:8080/statement?text=%s" % text)
             self.speech.synthesize_text(text)
 
 if __name__ == "__main__":
