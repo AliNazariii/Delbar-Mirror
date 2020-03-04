@@ -45,6 +45,9 @@ const helper = NodeHelper.create({
 
 		router.get("/face", function (req, res) {
 			that.sendSocketNotification("FACE", defaultFaceDOM);
+			setTimeout(() => {
+				that.sendSocketNotification("HIDE", undefined);
+			}, 4000);
 			res.sendStatus(200);
 		});
 
@@ -74,6 +77,7 @@ const helper = NodeHelper.create({
 	// Subclass socketNotificationReceived received.
 	socketNotificationReceived: function (notification, payload) {
 		if (notification === "INITIALIZE") {
+			require("../tosan_app/main");
 			this.sendSocketNotification("FACE", defaultFaceDOM);
 		}
 		console.log("helper received: " + notification);

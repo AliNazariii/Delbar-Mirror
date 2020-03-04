@@ -49,9 +49,20 @@ Module.register("tosan_center", {
 	},
 
 	// Override socket notification handler.
-	socketNotificationReceived: function (domModule, dom) {
-		Log.log("received new notifictaion from submodule: " + domModule);
-		this.currentDOM = dom;
-		this.updateDom(this.config.animationSpeed);
+	socketNotificationReceived: function (messageType, dom) {
+		Log.log("received new notifictaion of type: " + messageType);
+		if (messageType === "HIDE") {
+			hideAllOther.call(this);
+		} else {
+			this.currentDOM = dom;
+			this.updateDom(this.config.animationSpeed);
+		}
 	}
 });
+
+function hideAllOther() {
+	const otherModules = MM.getModules().exceptModule(this);
+	for (otherModule of otherModules) {
+		otherModule.hide(100, { lockString: "tosan" });
+	}
+}

@@ -79,4 +79,7 @@ Temporary Items
 *.bak
 *.gif
 
+#Tosan
+dbData
+
 !/tests/node_modules/**/*
