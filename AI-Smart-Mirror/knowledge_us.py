@@ -26,16 +26,6 @@ class Knowledge(object):
         ip_json = json.loads(req.text)
         return ip_json['ip']
 
-    def get_map_url(self, location, map_type=None):
-        if map_type == "satellite":
-            return "http://maps.googleapis.com/maps/api/staticmap?center=%s&zoom=13&scale=false&size=1200x600&maptype=satellite&format=png" % location
-        elif map_type == "terrain":
-            return "http://maps.googleapis.com/maps/api/staticmap?center=%s&zoom=13&scale=false&size=1200x600&maptype=terrain&format=png" % location
-        elif map_type == "hybrid":
-            return "http://maps.googleapis.com/maps/api/staticmap?center=%s&zoom=13&scale=false&size=1200x600&maptype=hybrid&format=png" % location
-        else:
-            return "http://maps.googleapis.com/maps/api/staticmap?center=%s&zoom=13&scale=false&size=1200x600&maptype=roadmap&format=png" % location
-
     def get_news(self):
         ret_headlines = []
         feed = feedparser.parse("https://news.google.com/news?ned=%s&output=rss" % self.news_country_code)
@@ -44,11 +34,4 @@ class Knowledge(object):
             ret_headlines.append(post.title)
 
         return ret_headlines
-
-    def get_holidays(self):
-        today = datetime.datetime.now()
-        r = requests.get("http://kayaposoft.com/enrico/json/v1.0/?action=getPublicHolidaysForYear&year=%s&country=usa" % today.year)
-        holidays = json.loads(r.text)
-
-        return holidays
 

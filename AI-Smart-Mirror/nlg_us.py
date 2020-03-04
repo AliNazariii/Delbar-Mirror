@@ -77,78 +77,6 @@ class NLG(object):
 
         return random.choice(searching_phrases)
 
-    def snow_white(self):
-
-        phrases = [
-            "You are",
-            "You",
-            "You are, of course"
-        ]
-
-        return random.choice(phrases)
-
-    def user_status(self, type='positive', attribute=None):
-
-        ret_phrase = ""
-
-        positive_complements = [
-            "good",
-            "nice",
-            "great",
-            "perfect",
-            "Beautiful"
-        ]
-
-        negative_complements = [
-            "bad",
-            "terrible"
-        ]
-
-        moderate_complements = [
-            "alright",
-            "okay"
-        ]
-
-        complement_choice = positive_complements
-        if type == 'negative':
-            complement_choice = negative_complements
-        elif type == 'moderate':
-            complement_choice = moderate_complements
-
-        if attribute is None:
-            ret_phrase = "You look %s" % random.choice(complement_choice)
-        else:
-            ret_phrase = self.generate('none', {'subject': "Your %s" % attribute, 'verb': 'look %s' % random.choice(complement_choice)}, "present")
-
-        return ret_phrase
-
-    def personal_status(self, status_type=None):
-        positive_status=[
-            "I'm doing well",
-            "Great, thanks for asking",
-            "I'm doing great"
-        ]
-
-        negative_status = [
-            "I'm not doing well",
-            "I'm feeling terrible",
-            "I'm not doing well today",
-            "I could be much better"
-        ]
-
-        moderate_status = [
-            "I'm doing alright",
-            "I'm okay",
-            "I could be better",
-            "I'm alright"
-        ]
-
-        if status_type == 'negative':
-            return random.choice(negative_status)
-        elif status_type == 'moderate':
-            return random.choice(moderate_status)
-
-        return random.choice(positive_status)
     def article_interest(self, article_titles):
         ret_phrase = None
 
@@ -159,33 +87,6 @@ class NLG(object):
                 ret_phrase = "%s sounds particularly interesting" % article
 
         return ret_phrase
-
-    def insult(self):
-        return "That's not very nice. Talk to me again when you have fixed your attitude"
-
-
-    def appreciation(self):
-        phrases = [
-            "No problem!",
-            "Any time",
-            "You are welcome",
-            "You're welcome",
-            "Sure, no problem",
-            "Of course",
-            "Don't mention it",
-            "Don't worry about it"
-        ]
-
-        return random.choice(phrases)
-
-    def holiday(self, holiday_name):
-        phrases = [
-            "",
-            "Looks like the next holiday is ",
-            "The next important day is "
-        ]
-
-        return "%s%s" % (random.choice(phrases), holiday_name)
 
     def meaning_of_life(self):
         phrases = [
