@@ -6,16 +6,17 @@ import requests
 from gtts import gTTS
 from pydub import AudioSegment
 from pydub.playback import play
-
+import json
+import arabic_reshaper
+from bidi.algorithm import get_display
 
 class Speech(object):
-    def __init__(self, launch_phrase="mirror mirror", debugger_enabled=False):
+    def __init__(self, launch_phrase="آینه آینه", debugger_enabled=False):
         self.launch_phrase = launch_phrase
         self.debugger_enabled = debugger_enabled
         self.__debugger_microphone(enable=False)
 
     def listen_for_audio(self):
-        # obtain audio from the microphone
         r = sr.Recognizer()
         m = sr.Microphone()
         with m as source:
@@ -30,19 +31,19 @@ class Speech(object):
         self.__debugger_microphone(enable=False)
         print ("Found audio")
 
-        import requests
         proxies1 = {'http': 'http://81.171.29.251:11495'}
         addr1 = 'http://5.202.178.217:8025/ASR/DoASRAnyWave'
         headers1 = {  'accept': 'application/json' }
         ftmp = open('temp-wav.wav', 'rb')
         data1 = { 'item' : ('temp-wav.wav', ftmp.read(), 'audio/wav') }
         res = requests.post(addr1, files = data1, proxies=proxies1, headers = headers1)
-        print(res.text)
-
-        return res
+        speech = json.loads(res.json())['data'][0]['text']
+        print(get_display(arabic_reshaper.reshape(speech)))
+        return speech
 
     def is_call_to_action(self, speech):
-        if speech is not None and self.launch_phrase in speech.lower():
+        if speech is not None and self.launch_phrase in speech:
+            print("is_call_to_action: True")
             return True
 
         return False
