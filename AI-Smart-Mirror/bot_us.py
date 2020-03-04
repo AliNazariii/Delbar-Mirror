@@ -15,7 +15,7 @@ from knowledge_us import Knowledge
 from vision_us import Vision
 
 my_name = "Ali"
-launch_phrase = "hello mirror"
+launch_phrase = "سلام"
 use_launch_phrase = True
 weather_api_token = "abb58408ed4cc40ac3e456f9c5c0b44c"
 debugger_enabled = True
@@ -46,12 +46,15 @@ class Bot(object):
         speech_res = self.speech.listen_for_audio()
 
         if speech_res is not None:
-            if speech_res == 'news':
+            if 'اخبار' in speech_res:
+                print(get_display(arabic_reshaper.reshape('اخبار')))
                 requests.get("http://localhost:8080/tosan_center/news")
-            elif speech_res == 'joke':
-                requests.get("http://localhost:8080/jokes")
-            elif speech_res == 'weather':
-                self.__weather_action(entities)
+            elif 'جوک' in speech_res:
+                print(get_display(arabic_reshaper.reshape('جوک')))
+                requests.get("http://localhost:8080/tosan_center/news")
+            elif 'هوا' in speech_res:
+                print(get_display(arabic_reshaper.reshape('هوا')))
+                requests.get("http://localhost:8080/tosan_center/news")
             elif speech_res == 'greeting':
                 self.__text_action(self.nlg.greet())
             elif speech_res == 'snow white':
@@ -113,55 +116,6 @@ class Bot(object):
         if text is not None:
             requests.get("http://localhost:8080/statement?text=%s" % text)
             self.speech.synthesize_text(text)
-
-    def __weather_action(self, nlu_entities=None):
-
-        current_dtime = datetime.datetime.now()
-        skip_weather = False # used if we decide that current weather is not important
-
-        weather_obj = self.knowledge.find_weather()
-        temperature = weather_obj['temperature']
-        icon = weather_obj['icon']
-        wind_speed = weather_obj['windSpeed']
-
-        weather_speech = self.nlg.weather(temperature, current_dtime, "present")
-        forecast_speech = None
-
-        if nlu_entities is not None:
-            if 'datetime' in nlu_entities:
-                if 'grain' in nlu_entities['datetime'][0] and nlu_entities['datetime'][0]['grain'] == 'day':
-                    dtime_str = nlu_entities['datetime'][0]['value'] # 2016-09-26T00:00:00.000-07:00
-                    dtime = dateutil.parser.parse(dtime_str)
-                    if current_dtime.date() == dtime.date(): # hourly weather
-                        forecast_obj = {'forecast_type': 'hourly', 'forecast': weather_obj['daily_forecast']}
-                        forecast_speech = self.nlg.forecast(forecast_obj)
-                    elif current_dtime.date() < dtime.date(): # sometime in the future ... get the weekly forecast/ handle specific days
-                        forecast_obj = {'forecast_type': 'daily', 'forecast': weather_obj['weekly_forecast']}
-                        forecast_speech = self.nlg.forecast(forecast_obj)
-                        skip_weather = True
-            if 'Weather_Type' in nlu_entities:
-                weather_type = nlu_entities['Weather_Type'][0]['value']
-                print (weather_type)
-                if weather_type == "current":
-                    forecast_obj = {'forecast_type': 'current', 'forecast': weather_obj['current_forecast']}
-                    forecast_speech = self.nlg.forecast(forecast_obj)
-                elif weather_type == 'today':
-                    forecast_obj = {'forecast_type': 'hourly', 'forecast': weather_obj['daily_forecast']}
-                    forecast_speech = self.nlg.forecast(forecast_obj)
-                elif weather_type == 'tomorrow' or weather_type == '3 day' or weather_type == '7 day':
-                    forecast_obj = {'forecast_type': 'daily', 'forecast': weather_obj['weekly_forecast']}
-                    forecast_speech = self.nlg.forecast(forecast_obj)
-                    skip_weather = True
-
-
-        weather_data = {"temperature": temperature, "icon": icon, 'windSpeed': wind_speed, "hour": datetime.datetime.now().hour}
-        requests.post("http://localhost:8080/weather", data=json.dumps(weather_data))
-
-        if not skip_weather:
-            self.speech.synthesize_text(weather_speech)
-
-        if forecast_speech is not None:
-            self.speech.synthesize_text(forecast_speech)
 
     def __maps_action(self, nlu_entities=None):
 
