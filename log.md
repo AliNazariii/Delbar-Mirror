@@ -28,3 +28,4 @@
 * connect to tosan speech to text api
 * match recognized voice with news api
 * remove old and redaundant services from smart mirror
+* remove natural english language generator and knowledge python files

@@ -22,14 +22,14 @@ class Speech(object):
         with m as source:
             r.adjust_for_ambient_noise(source)
             self.__debugger_microphone(enable=True)
-            print ("I'm listening")
+            print(get_display(arabic_reshaper.reshape('در حال گوش دادن به صدای شما')))
             audio = r.listen(source)
 
         with open("temp-wav.wav", "wb") as f:
             f.write(audio.get_wav_data())
 
         self.__debugger_microphone(enable=False)
-        print ("Found audio")
+        print(get_display(arabic_reshaper.reshape('صدای شما دریافت شد')))
 
         proxies1 = {'http': 'http://81.171.29.251:11495'}
         addr1 = 'http://5.202.178.217:8025/ASR/DoASRAnyWave'
@@ -43,9 +43,8 @@ class Speech(object):
 
     def is_call_to_action(self, speech):
         if speech is not None and self.launch_phrase in speech:
-            print("is_call_to_action: True")
+            print(get_display(arabic_reshaper.reshape('آینه فعال شد')))
             return True
-
         return False
 
     def synthesize_text(self, text):
