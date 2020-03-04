@@ -25,3 +25,9 @@
 * Remove wit APIs
 * use if/else to select an action based on speech
 * connect news to Magic api
+* save voice input
+* connect to tosan speech to text api
+* match recognized voice with news api
+* remove old and redaundant services from smart mirror
+* remove natural english language generator and knowledge python files
+* completely clean the source codes to add new features
