@@ -9,7 +9,6 @@ import datetime
 import dateutil.parser
 import json
 import traceback
-from nlg_us import NLG
 from speech_us import Speech
 from knowledge_us import Knowledge
 from vision_us import Vision
@@ -24,7 +23,6 @@ camera = 0
 
 class Bot(object):
     def __init__(self):
-        self.nlg = NLG(user_name=my_name)
         self.speech = Speech(launch_phrase=launch_phrase, debugger_enabled=debugger_enabled)
         self.knowledge = Knowledge(weather_api_token)
         self.vision = Vision(camera=camera)
@@ -37,7 +35,6 @@ class Bot(object):
                 if use_launch_phrase:
                     speech_res = self.speech.listen_for_audio()
                     if self.speech.is_call_to_action(speech_res):
-                        self.__acknowledge_action()
                         self.decide_action()
                 else:
                     self.decide_action()
@@ -60,9 +57,6 @@ class Bot(object):
                 return
 
             self.decide_action()
-
-    def __acknowledge_action(self):
-        self.__text_action(self.nlg.acknowledge())
 
     def __text_action(self, text=None):
         if text is not None:
