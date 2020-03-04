@@ -25,3 +25,6 @@
 * Remove wit APIs
 * use if/else to select an action based on speech
 * connect news to Magic api
+* connect to tosan speech to text api
+* match recognized voice with news api
+* remove old and redaundant services from smart mirror
