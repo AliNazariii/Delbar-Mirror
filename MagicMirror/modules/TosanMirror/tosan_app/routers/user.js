@@ -16,9 +16,9 @@ async function findByParamId(req, res, next) {
 
 router.post("/", async (req, res) => {
 	try {
-		User.create(req.body);
+		const user = (await User.create(req.body));
 		await User.sync();
-		res.status(201).send();
+		res.status(201).send(user);
 	} catch (err) {
 		res.status(500).send(err.message);
 	}
@@ -42,6 +42,7 @@ router.patch("/:id", findByParamId, async (req, res) => {
 			newUser[update] = req.body[update];
 		}
 		const updatedUser = await req.user.update(newUser);
+		await User.sync();
 		res.send(updatedUser);
 	} catch (err) {
 		res.status(500).send(err.message);
@@ -51,6 +52,7 @@ router.patch("/:id", findByParamId, async (req, res) => {
 router.delete("/:id", findByParamId, async (req, res) => {
 	try {
 		await req.user.destroy();
+		await User.sync();
 		res.send();
 	} catch (err) {
 		res.status(500).send(err.message);
