@@ -77,7 +77,9 @@ const helper = NodeHelper.create({
 	// Subclass socketNotificationReceived received.
 	socketNotificationReceived: function (notification, payload) {
 		if (notification === "INITIALIZE") {
-			require("../tosan_app/main");
+			console.log("hello");
+
+			this.expressApp.use("/tosan_app", require("../tosan_app/main"));
 			this.sendSocketNotification("FACE", defaultFaceDOM);
 		}
 		console.log("helper received: " + notification);
