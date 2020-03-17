@@ -5,3 +5,7 @@ python-dateutil
 pydub
 feedparser
 numpy
+arabic-reshaper
+requests
+python-bidi
+opencv-python

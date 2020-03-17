@@ -52,6 +52,14 @@ class Bot(object):
             elif 'هوا' in speech_res:
                 print(get_display(arabic_reshaper.reshape('هوا')))
                 requests.get("http://localhost:8080/tosan_center/news")
+            elif 'خوب' in speech_res:
+                print(get_display(arabic_reshaper.reshape('خوب')))
+                proxies1 = {'http': 'http://81.171.29.251:11495'}
+                addr1 = 'http://5.202.178.217:8025/TTS/DoTTS'
+                headers1 = {  'accept': 'application/json' }
+                data1 = "{\"Text\":\"123\",\"Username\":\"test\",\"Password\":\"test\"}"
+                res = requests.post(addr1, data=data1, proxies=proxies1, headers=headers1)
+                open('temp2-wav.wav', 'wb').write(res.content)
             else: # No recognized speech
                 self.__text_action("I'm sorry.")
                 return

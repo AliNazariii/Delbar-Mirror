@@ -25,8 +25,7 @@ class Speech(object):
             print(get_display(arabic_reshaper.reshape('در حال گوش دادن به صدای شما')))
             audio = r.listen(source)
 
-        with open("temp-wav.wav", "wb") as f:
-            f.write(audio.get_wav_data())
+        open('temp-wav.wav', 'wb').write(audio.get_wav_data())
 
         self.__debugger_microphone(enable=False)
         print(get_display(arabic_reshaper.reshape('صدای شما دریافت شد')))
